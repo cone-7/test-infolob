@@ -1,0 +1,13 @@
+.container-input {
+	float: right;
+	margin: 10 0;
+}
+
+.container-drop {
+	float: left;
+}
+
+.input {
+	height: 42px;
+	width: 200px;
+}

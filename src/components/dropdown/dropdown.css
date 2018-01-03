@@ -1,0 +1,69 @@
+
+.Dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+  
+.Dropdown  button {
+    padding: 0 20px;
+    overflow: hidden;
+  }
+
+.Dropdown_Btn {
+    background-color: white;
+    height: 42px;
+    border: solid 1px rgba(51, 51, 51, 0.3);
+    font-size: 14px;
+    color: gray;
+    text-align: left;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRENUM3NkVGNkNDOTExRTc4NjE2QTMyQzUxRDFENTQxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRENUM3NkYwNkNDOTExRTc4NjE2QTMyQzUxRDFENTQxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEQ1Qzc2RUQ2Q0M5MTFFNzg2MTZBMzJDNTFEMUQ1NDEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEQ1Qzc2RUU2Q0M5MTFFNzg2MTZBMzJDNTFEMUQ1NDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6oq9XTAAAAVElEQVR42mJkzVnbwcDAUM5AHJjB/O/Uqj3MZuGcQI4NIcVAnMUI46HZVAWl25AV/54S/J8R2QgczoMrBnGYkWWwOA9FMQgwYnMs1CZ+dMUgABBgAEr/IavH4zHBAAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
+}
+
+  .Dropdown_Btn:focus {
+      outline: none;
+      box-shadow: none;
+      border: solid 2px blue;
+  }
+
+  .Dropdown_Btn:hover .Dropdown_Content {
+    display: block;
+  }
+
+  .Dropdown_Content {
+    position: absolute;
+    background-color: white;
+    height: auto;
+    box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.08);
+    border: solid 1px gray;
+    z-index: 1;
+    display: block;
+    width: 100%;
+  }
+
+  .Dropdown_Option {
+    color: gray;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    background-color: white;
+  }
+
+  .Dropdown_Option:hover {
+      background-color: #ececec;
+      color: #4646c5;
+  }
+
+  .Dropdown_Dropbtn_Initial {
+    color: gray;
+    width: 100%;
+  }
+
+  .Dropdown_Dropbtn_Invalid {
+    border: solid 2px red;
+  }
