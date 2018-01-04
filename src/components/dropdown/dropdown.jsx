@@ -18,20 +18,19 @@ class DropdownComponent extends Component {
   onClickOption(item, event) {
   	event.preventDefault();
 
-    // itemsUsed = push(item);
-    this.state.restOfItems.push(item)
+    /*this.state.restOfItems.push(item)
 
     const index = this.state.items.findIndex(function(ele){
       return ele.value === item.value;
-    });
-
-    console.log(this.state.restOfItems);
+    });*/
 
     this.setState({
       open: !this.state.open,
       label: item.label,
-      items: this.state.items.filter(e => e.value !== item.value)
+      //items: this.state.items.filter(e => e.value !== item.value)
     });
+
+    this.props.getValue(item);
 
   }
 
@@ -76,6 +75,7 @@ DropdownComponent.propTypes = {
     value: PropTypes.number,
   })).isRequired,
   name: PropTypes.string.isRequired,
+  getValue: PropTypes.func,
 };
 
 export default DropdownComponent;

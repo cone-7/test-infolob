@@ -8,11 +8,13 @@ import DropDownComponent from './src/components/dropdown/dropdown.jsx';
 import DropPlusInputComponent from './src/components/dropplusinput/dropplusinput.jsx';
 import RepeatComponent from './src/components/repeater/repeat.jsx';
 
+
+
 ReactDOM.render(
 	<div>
-		<DropPlusInputComponent ></DropPlusInputComponent>
-		<ButtonComponent children="Log"></ButtonComponent>
-		<ButtonComponent children="Add Another"></ButtonComponent>
+		<RepeatComponent itemRepeat={['']} name="equis"></RepeatComponent>
+		{/* <ButtonComponent children="Log"></ButtonComponent>
+		<ButtonComponent children="Add Another"></ButtonComponent> */}
 	</div>, 
 	document.getElementById("main")
 );
