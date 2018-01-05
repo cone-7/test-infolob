@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import ButtonComponent from '../button/button.jsx';
 import DropPlusInputComponent from '../dropplusinput/dropplusinput.jsx';
+import ShowListComponent from '../showlist/showlist.jsx';
+import './repeat.css';
 
 class RepeatComponent extends Component {
-
-  
 
   constructor(props) {
     super(props);
@@ -15,10 +15,12 @@ class RepeatComponent extends Component {
       restOfItemsDrop: [],
       itemsDrop: this.returnTypesTelephone(),
       itemSelected: '',
+      logVisible: false,
     };
     this.onClickOption = this.onClickOption.bind(this);
     this.getValue = this.getValue.bind(this);
-    this.returnTypesTelephone = this.returnTypesTelephone(this);
+    this.returnTypesTelephone = this.returnTypesTelephone.bind(this);
+    this.showLog = this.showLog.bind(this)
   }
 
   returnTypesTelephone(){
@@ -42,13 +44,8 @@ class RepeatComponent extends Component {
   ];
   }
 
-  onClickOption( event) {
+  onClickOption(event) {
   	//event.preventDefault();
-
-    /*this.state.restOfItems.push(item)
-    const index = this.state.items.findIndex(function(ele){
-      return ele.value === item.value;
-    });*/
 
     this.state.items.push([]);
 
@@ -65,18 +62,31 @@ class RepeatComponent extends Component {
     });
   }
 
+  showLog(){
+    this.setState({ logVisible: !this.state.logVisible });
+  }
+
+
   render() {
     
     return (
       <div>
         {
           this.state.items.map((i, index, array) =>
-              <div>
-                <DropPlusInputComponent items={this.state.itemsDrop} getSelectedItem={this.getValue}/>
+              <div style={{display:'-webkit-box'}}>
+                <DropPlusInputComponent style={{background:'blue'}} items={this.state.itemsDrop} getSelectedItem={this.getValue}/>
+                <div className="removeButton">
+                  <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Remove" onClick={this.onClickOption}></ButtonComponent>
+                </div>
               </div>
           )
         }
-        <ButtonComponent children="Add Another" onClick={this.onClickOption}></ButtonComponent>
+        {
+          this.state.logVisible &&
+            <ShowListComponent phones={this.state.restOfItemsDrop}></ShowListComponent>
+        }
+        <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Add Another" onClick={this.onClickOption}></ButtonComponent>
+        <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Log" onClick={this.showLog}></ButtonComponent>
       </div>
     );
   }

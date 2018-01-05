@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import DropDownComponent from '../dropdown/dropdown.jsx';
+import InputComponent from '../input/input.jsx';
 import './dropplusinput.css';
 
 const DropPlusInputComponent = (props) => {
@@ -12,7 +13,7 @@ const DropPlusInputComponent = (props) => {
   			<DropDownComponent items={props.items} name="typesTel" getValue={props.getSelectedItem}></DropDownComponent>
   		</div>
   		<div className="container-input">
-  			<input className="input" type="text"></input>
+        <InputComponent name="nameinput"></InputComponent>
   		</div>
   	</div>
   );
