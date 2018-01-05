@@ -10,10 +10,10 @@ const DropPlusInputComponent = (props) => {
   return (
   	<div style={{width:350}}>
   		<div className="container-drop" style={{width:150}}>
-  			<DropDownComponent items={props.items} name="typesTel" getValue={props.getSelectedItem}></DropDownComponent>
+  			<DropDownComponent defaultDropDown={props.defaultDropDown} items={props.items} name="typesTel" getValue={props.getSelectedItem}></DropDownComponent>
   		</div>
   		<div className="container-input">
-        <InputComponent name="nameinput"></InputComponent>
+        <InputComponent defaultInput={props.defaultInput} name="nameinput" onBlur={props.onBlurInput}></InputComponent>
   		</div>
   	</div>
   );
@@ -22,6 +22,9 @@ const DropPlusInputComponent = (props) => {
 DropPlusInputComponent.propTypes = {
   items: PropTypes.array,
   getSelectedItem: PropTypes.func,
+  onBlurInput: PropTypes.func,
+  defaultInput: PropTypes.string,
+  defaultDropDown: PropTypes.string,
 }
 
 export default DropPlusInputComponent;

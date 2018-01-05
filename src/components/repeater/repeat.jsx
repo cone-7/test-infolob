@@ -16,11 +16,14 @@ class RepeatComponent extends Component {
       itemsDrop: this.returnTypesTelephone(),
       itemSelected: '',
       logVisible: false,
+      inputValue: '',
     };
-    this.onClickOption = this.onClickOption.bind(this);
-    this.getValue = this.getValue.bind(this);
+    this.addPhone = this.addPhone.bind(this);
+    this.getValueDrop = this.getValueDrop.bind(this);
+    this.getValueInput = this.getValueInput.bind(this);
     this.returnTypesTelephone = this.returnTypesTelephone.bind(this);
-    this.showLog = this.showLog.bind(this)
+    this.showLog = this.showLog.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   returnTypesTelephone(){
@@ -44,26 +47,47 @@ class RepeatComponent extends Component {
   ];
   }
 
-  onClickOption(event) {
+  addPhone(event) {
   	//event.preventDefault();
-
-    this.state.items.push([]);
+    let itemToAdd = {'type': this.state.itemSelected.label, 'number': this.state.inputValue};
+    this.state.items[this.state.items.length-1] = itemToAdd;
+      
+    this.state.items.push([])
 
     this.setState({
-      itemsDrop: this.state.itemsDrop.filter(e => e.value !== this.state.itemSelected.value)
+      itemsDrop: this.state.itemsDrop.filter(e => e.value !== this.state.itemSelected.value),
+      items: this.state.items,
     });
 
   }
 
-  getValue(item) {
+  getValueDrop(item) {
     this.state.restOfItemsDrop.push(this.state.itemsDrop.filter(e => e.value === item.value)[0]);
     this.setState({
       itemSelected: item
     });
   }
 
+  getValueInput(value) {
+    this.setState({
+      inputValue: value,
+    });
+  }
+
   showLog(){
     this.setState({ logVisible: !this.state.logVisible });
+  }
+
+  remove(i){
+    if(this.state.items[i].type)
+      this.setState({
+        //itemsDrop: this.state.itemsDrop.push(this.state.items.splice(i, 1)),
+        //itemsDrop: this.state.itemsDrop.push(this.state.items.slice(i,i+1)),
+        itemsDrop: this.state.itemsDrop.push(this.state.restOfItemsDrop.filter(e => e.label === this.state.items[i].type)[0]),
+        inputValue: '',
+        items: this.state.items.slice(0,i).concat(this.state.items.slice(i+1,this.state.items.length))
+        //items: this.state.items
+      })
   }
 
 
@@ -74,19 +98,23 @@ class RepeatComponent extends Component {
         {
           this.state.items.map((i, index, array) =>
               <div style={{display:'-webkit-box'}}>
-                <DropPlusInputComponent style={{background:'blue'}} items={this.state.itemsDrop} getSelectedItem={this.getValue}/>
+                <DropPlusInputComponent style={{background:'blue'}} 
+                  items={this.state.itemsDrop} defaultInput={i.number} defaultDropDown={i.type} getSelectedItem={this.getValueDrop}
+                  onBlurInput={this.getValueInput} />
                 <div className="removeButton">
-                  <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Remove" onClick={this.onClickOption}></ButtonComponent>
+                  <ButtonComponent disabled={!this.state.items[index].type} children="Remove" onClick={() => this.remove(index)}></ButtonComponent>
                 </div>
               </div>
           )
         }
+        <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Add Another" onClick={this.addPhone}></ButtonComponent>
+        <ButtonComponent disabled={this.state.items.length===1} children="Log" onClick={this.showLog}></ButtonComponent>
         {
           this.state.logVisible &&
-            <ShowListComponent phones={this.state.restOfItemsDrop}></ShowListComponent>
+            <div>
+              <ShowListComponent phones={this.state.items} ></ShowListComponent>
+            </div>
         }
-        <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Add Another" onClick={this.onClickOption}></ButtonComponent>
-        <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Log" onClick={this.showLog}></ButtonComponent>
       </div>
     );
   }
@@ -95,10 +123,6 @@ class RepeatComponent extends Component {
 RepeatComponent.propTypes = {
   label: PropTypes.string,
   itemRepeat: PropTypes.array,
-  itemsShow: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.number,
-  })).isRequired,
   name: PropTypes.string.isRequired,
 };
 

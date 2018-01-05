@@ -18,16 +18,9 @@ class DropdownComponent extends Component {
   onClickOption(item, event) {
   	event.preventDefault();
 
-    /*this.state.restOfItems.push(item)
-
-    const index = this.state.items.findIndex(function(ele){
-      return ele.value === item.value;
-    });*/
-
     this.setState({
       open: !this.state.open,
       label: item.label,
-      //items: this.state.items.filter(e => e.value !== item.value)
     });
 
     this.props.getValue(item);
@@ -45,7 +38,7 @@ class DropdownComponent extends Component {
           className="Dropdown_Btn Dropdown_Dropbtn_Initial"
           onClick={this.toogle}
         >
-          {this.state.label}
+          {this.props.defaultDropDown ? this.props.defaultDropDown : this.state.label}
         </button>
         { this.state.open &&
           <div className="Dropdown_Content">
@@ -76,6 +69,7 @@ DropdownComponent.propTypes = {
   })).isRequired,
   name: PropTypes.string.isRequired,
   getValue: PropTypes.func,
+  defaultDropDown: PropTypes.string,
 };
 
 export default DropdownComponent;

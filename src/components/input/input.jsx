@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './input.css';
+
 class InputComponent extends Component {
   constructor(props) {
     super(props);
@@ -9,27 +11,31 @@ class InputComponent extends Component {
       value: ''
     };
 
-    this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
   }
 
-  onChange(event) {
+  onBlur(event) {
   	event.preventDefault();
 
     this.setState({
       value: event.target.value,
     });
+    this.props.onBlur(this.state.value);
   }
 
   render() {
     return (
-        <input type="text" name={this.props.name} value={this.state.value} onChange={() => this.props.onChange()} />
+      <div>
+        <input type="text" name={this.props.name} onChange={this.onBlur} value={this.state.value ? this.state.value : this.props.defaultInput} onBlur={this.onBlur} />
+      </div>
     );
   }
 }
 
 InputComponent.propTypes = {
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  defaultInput: PropTypes.string,
 };
 
 export default InputComponent;

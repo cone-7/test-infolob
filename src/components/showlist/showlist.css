@@ -1,0 +1,15 @@
+.main-container {
+	padding-top: 30px;
+}
+
+.container-log {
+	display: block;
+}
+
+.row-log {
+	display: inline-block;
+	border: 1px solid gray;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+}
