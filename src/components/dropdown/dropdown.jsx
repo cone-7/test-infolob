@@ -9,7 +9,6 @@ class DropdownComponent extends Component {
       open: false,
       label: props.label,
       items: props.items,
-      restOfItems: []
     };
     this.toogle = this.toogle.bind(this);
     this.onClickOption = this.onClickOption.bind(this);

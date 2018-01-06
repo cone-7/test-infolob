@@ -26,7 +26,9 @@ class InputComponent extends Component {
   render() {
     return (
       <div>
-        <input type="text" name={this.props.name} onChange={this.onBlur} value={this.state.value ? this.state.value : this.props.defaultInput} onBlur={this.onBlur} />
+        <input type="text" name={this.props.name} onChange={this.onBlur} 
+          value={this.props.defaultInput ? this.props.defaultInput : this.state.value } 
+          onBlur={this.onBlur} />
       </div>
     );
   }

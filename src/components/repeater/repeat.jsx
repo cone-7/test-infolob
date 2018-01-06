@@ -47,16 +47,23 @@ class RepeatComponent extends Component {
   ];
   }
 
-  addPhone(event) {
-  	//event.preventDefault();
+  addPhone() {
+  	
     let itemToAdd = {'type': this.state.itemSelected.label, 'number': this.state.inputValue};
-    this.state.items[this.state.items.length-1] = itemToAdd;
-      
-    this.state.items.push([])
-
-    this.setState({
-      itemsDrop: this.state.itemsDrop.filter(e => e.value !== this.state.itemSelected.value),
-      items: this.state.items,
+    this.setState(prevState => {
+        let itemsAux = this.state.items;
+        if(prevState.items.length===1){
+          itemsAux[0] = itemToAdd;
+          itemsAux.push([]);
+        }
+        else{
+          itemsAux[itemsAux.length-1] = itemToAdd;
+          itemsAux.push([]);
+        }
+        return {
+          itemsDrop: prevState.itemsDrop.filter(e => e.value !== prevState.itemSelected.value),
+          items:  itemsAux, 
+        }
     });
 
   }
@@ -79,15 +86,15 @@ class RepeatComponent extends Component {
   }
 
   remove(i){
-    if(this.state.items[i].type)
+    if(this.state.items[i].type){
+      let auxItem = this.state.items.slice(0,i).concat(this.state.items.slice(i+1,this.state.items.length-1));
+      auxItem.push([]);
       this.setState({
-        //itemsDrop: this.state.itemsDrop.push(this.state.items.splice(i, 1)),
-        //itemsDrop: this.state.itemsDrop.push(this.state.items.slice(i,i+1)),
-        itemsDrop: this.state.itemsDrop.push(this.state.restOfItemsDrop.filter(e => e.label === this.state.items[i].type)[0]),
+        itemsDrop: [...this.state.itemsDrop,this.state.restOfItemsDrop.filter(e => e.label === this.state.items[i].type)[0]],
         inputValue: '',
-        items: this.state.items.slice(0,i).concat(this.state.items.slice(i+1,this.state.items.length))
-        //items: this.state.items
+        items: auxItem
       })
+    }
   }
 
 
@@ -97,14 +104,21 @@ class RepeatComponent extends Component {
       <div>
         {
           this.state.items.map((i, index, array) =>
-              <div style={{display:'-webkit-box'}}>
-                <DropPlusInputComponent style={{background:'blue'}} 
-                  items={this.state.itemsDrop} defaultInput={i.number} defaultDropDown={i.type} getSelectedItem={this.getValueDrop}
-                  onBlurInput={this.getValueInput} />
-                <div className="removeButton">
-                  <ButtonComponent disabled={!this.state.items[index].type} children="Remove" onClick={() => this.remove(index)}></ButtonComponent>
-                </div>
+            <div style={{display:'-webkit-box'}} key={i.type}>
+              <DropPlusInputComponent style={{background:'blue'}} 
+                items={this.state.itemsDrop} 
+                defaultInput={i.number} 
+                defaultDropDown={i.type} 
+                getSelectedItem={this.getValueDrop}
+                onBlurInput={this.getValueInput} />
+              <div className="removeButton">
+                <ButtonComponent 
+                  disabled={!this.state.items[index].type} 
+                  children="Remove" 
+                  onClick={() => this.remove(index)}>
+                </ButtonComponent>
               </div>
+            </div>
           )
         }
         <ButtonComponent disabled={this.state.itemsDrop.length===1} children="Add Another" onClick={this.addPhone}></ButtonComponent>
